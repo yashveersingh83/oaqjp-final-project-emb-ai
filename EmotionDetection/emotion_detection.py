@@ -9,8 +9,7 @@ def emotion_detector(text_to_analyse):
 
     try:
         response = requests.post(url, json=inputjson, headers=headers)
-        response.raise_for_status()
-        print (f' res: {response}')
+        print (f' res   : {response}')
         if response.status_code == 400:
             return {
                 'anger': None,
@@ -18,11 +17,11 @@ def emotion_detector(text_to_analyse):
                 'fear': None,
                 'joy': None,
                 'sadness': None
-            },400
+            }
 
         formatted_output = response.json()
 
-        return formatted_output['emotionPredictions'][0]['emotion'],200
+        return formatted_output['emotionPredictions'][0]['emotion']
 
     except Exception as e:
         print("API Error:", e)

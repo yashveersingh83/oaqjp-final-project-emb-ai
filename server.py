@@ -10,15 +10,14 @@ def render_index_page():
 def emotio_detector():
     # Retrieve the text to detect emotions from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
-    # empty_result ={
-    #                 'anger': None,
-    #                 'disgust': None,
-    #                 'fear': None,
-    #                 'joy': None,
-    #                 'sadness': None
-    #                 }
-    #if ( not text_to_analyze) :
-      #return empty_result,400
+    empty_result ={
+                    'anger': None,
+                    'disgust': None,
+                    'fear': None,
+                    'joy': None,
+                    'sadness': None
+                    }
+    
     try:
         # Pass the text to the sentiment_analyzer function and store the response
         result = emotion_detector(text_to_analyze)
@@ -32,7 +31,7 @@ def emotio_detector():
         print (final_result)
         return final_result,200
     except Exception as e:
-        print("Error occurred:", e)
+        print("Error occurred at server :", e)
         return "Error occurred"
         
 
