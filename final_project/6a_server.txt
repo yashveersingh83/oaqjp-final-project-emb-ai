@@ -8,29 +8,26 @@ def render_index_page():
 
 @app.route("/emotionDetector")
 def emotio_detector():
+    empty_result ={
+                    'anger': None,
+                    'disgust': None,
+                    'fear': None,
+                    'joy': None,
+                    'sadness': None
+                    }
     # Retrieve the text to detect emotions from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
-    # empty_result ={
-    #                 'anger': None,
-    #                 'disgust': None,
-    #                 'fear': None,
-    #                 'joy': None,
-    #                 'sadness': None
-    #                 }
-    #if ( not text_to_analyze) :
-      #return empty_result,400
+    if ( not text_to_analyze) :
+      return "Please enter a valid sentence."
     try:
         # Pass the text to the sentiment_analyzer function and store the response
         result = emotion_detector(text_to_analyze)
-        
-        print(result)
-        if result['joy'] is None:
-            return empty_result ,400
+        #print(result)
         predicted_emotion = max(result, key=result.get)
         result['dominant_emotion'] = predicted_emotion    
         final_result = f"For the given statement, the system response is {result} .  The dominant emotion is {predicted_emotion}"
         print (final_result)
-        return final_result,200
+        return final_result
     except Exception as e:
         print("Error occurred:", e)
         return "Error occurred"
