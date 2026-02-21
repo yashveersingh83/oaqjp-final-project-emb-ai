@@ -1,0 +1,33 @@
+from flask import Flask, render_template, request
+from EmotionDetection.emotion_detection  import emotion_detector
+app = Flask("Emotion Detection  Analyzer")
+
+@app.route("/")
+def render_index_page():
+    return render_template('index.html')
+
+@app.route("/emotionDetector")
+def emotio_detector():
+    # Retrieve the text to detect emotions from the request arguments
+    text_to_analyze = request.args.get('textToAnalyze')
+    if (
+    not text_to_analyze
+    or len(text_to_analyze.split()) < 3
+    or not text_to_analyze.strip().endswith(('.', '!', '?'))):
+     return "Please enter a valid sentence."
+    try:
+        # Pass the text to the sentiment_analyzer function and store the response
+        result = emotion_detector(text_to_analyze)
+        #print(result)
+        predicted_emotion = max(result, key=result.get)
+        result['dominant_emotion'] = predicted_emotion    
+        final_result = f"For the given statement, the system response is {result} .  The dominant emotion is {predicted_emotion}"
+        print (final_result)
+        return final_result
+    except Exception as e:
+        print("Error occurred:", e)
+        return "Error occurred"
+        
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
