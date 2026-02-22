@@ -17,13 +17,13 @@ def render_index_page():
 
 @app.route("/emotionDetector")
 def emotio_detector():
-    """APi method used 
+    """APi method used
     Returns:
         str: result or excpetion message with empty result.
     """
     # Retrieve the text to detect emotions from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
-    empty_result = { 'anger': None,'disgust': None,'fear': None,'joy': None,'sadness': None} 
+    empty_result = { 'anger': None,'disgust': None,'fear': None,'joy': None,'sadness': None}
     try:
         # Pass the text to the sentiment_analyzer function and store the response
         result = emotion_detector(text_to_analyze)
@@ -41,7 +41,7 @@ def emotio_detector():
 
     except RuntimeError as error:
         app.logger.error("Emotion detection failure: %s", error)
-        return "Emotion detection failed", 500        
+        return "Emotion detection failed",500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
