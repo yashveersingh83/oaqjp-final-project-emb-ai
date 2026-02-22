@@ -1,3 +1,4 @@
+
 >>> from EmotionDetection.emotion_detection import emotion_detector
 >>> res = emotion_detector('I love Technology!')
 {'anger': 0.016266976, 'disgust': 0.0020830503, 'fear': 0.008719894, 'joy': 0.97841626, 'sadness': 0.037016504}
